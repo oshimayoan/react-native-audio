@@ -196,6 +196,10 @@ class AudioRecorderManager extends ReactContextBaseJavaModule {
       logAndRejectPromise(promise, "INVALID_STATE", "Please call stopRecording before starting recording");
       return;
     }
+
+    // Create notification channel for foreground service
+    NotificationHelper.getInstance(getReactApplicationContext()).createNotificationChannel();
+    
     recorder.start();
 
     stopWatch.reset();
@@ -203,6 +207,12 @@ class AudioRecorderManager extends ReactContextBaseJavaModule {
     isRecording = true;
     isPaused = false;
     startTimer();
+
+    // Start foreground service
+    Intent intent = new Intent(getReactApplicationContext(), VIForegroundService.class);
+    intent.setAction(Constants.ACTION_FOREGROUND_SERVICE_START);
+    getReactApplicationContext().startService(intent);
+    
     promise.resolve(currentOutputFile);
   }
 
@@ -230,6 +240,11 @@ class AudioRecorderManager extends ReactContextBaseJavaModule {
     finally {
       recorder = null;
     }
+
+    // Stop foreground service
+    Intent intent = new Intent(getReactApplicationContext(), VIForegroundService.class);
+    intent.setAction(Constants.ACTION_FOREGROUND_SERVICE_STOP);
+    getReactApplicationContext().stopService(intent);
 
     promise.resolve(currentOutputFile);
 
