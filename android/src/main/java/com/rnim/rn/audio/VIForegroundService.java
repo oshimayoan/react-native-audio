@@ -14,6 +14,8 @@ import static com.rnim.rn.audio.Constants.NOTIFICATION_CONFIG;
 
 public class VIForegroundService extends Service {
 
+    private final int NOTIF_ID = 957;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -30,7 +32,7 @@ public class VIForegroundService extends Service {
                         Notification notification = NotificationHelper.getInstance(getApplicationContext())
                             .buildNotification(getApplicationContext());
 
-                        startForeground((int)notificationConfig.getDouble("id"), notification);
+                        startForeground(NOTIF_ID, notification);
                 //     }
                 // }
             } else if (action.equals(Constants.ACTION_FOREGROUND_SERVICE_STOP)) {
