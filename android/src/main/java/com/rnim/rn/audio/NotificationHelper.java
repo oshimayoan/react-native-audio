@@ -64,7 +64,7 @@ class NotificationHelper {
         NotificationCompat.Builder notificationBuilder;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder = new NotificationCompat.Builder(context);
+            notificationBuilder = new NotificationCompat.Builder(context, channelId);
         } else {
             notificationBuilder = new NotificationCompat.Builder(context);
         }
