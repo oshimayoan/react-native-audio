@@ -23,7 +23,7 @@ android {
 }
 
 repositories {
-    google()
+    mavenCentral()
 }
 
 def supportVersion = DEFAULT_SUPPORT_LIB_VERSION
