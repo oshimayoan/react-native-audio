@@ -3,6 +3,8 @@ package com.rnim.rn.audio;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ComponentName;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -212,7 +214,10 @@ class AudioRecorderManager extends ReactContextBaseJavaModule {
     // Start foreground service
     Intent intent = new Intent(getReactApplicationContext(), VIForegroundService.class);
     intent.setAction(Constants.ACTION_FOREGROUND_SERVICE_START);
-    getReactApplicationContext().startService(intent);
+    ComponentName componentName = getReactApplicationContext().startService(intent);
+    if (componentName == null) {
+      Log.e("ERROR_SERVICE_ERROR", "VIForegroundService: Foreground service is not started");
+    }
     
     promise.resolve(currentOutputFile);
   }
