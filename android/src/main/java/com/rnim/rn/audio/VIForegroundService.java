@@ -25,7 +25,7 @@ public class VIForegroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
-        Log.e("ERROR_SERVICE_ERROR", action)
+        Log.e("ERROR_SERVICE_ERROR", action);
         if (action != null) {
             if (action.equals(Constants.ACTION_FOREGROUND_SERVICE_START)) {
                 // if (intent.getExtras() != null && intent.getExtras().containsKey(NOTIFICATION_CONFIG)) {
